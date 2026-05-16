@@ -1,0 +1,60 @@
+{
+  "_comment": "Config inicial para halifax_intersection_aerial.mp4 (3840x2160 aerial top-down). Coordenadas en pixeles del frame 4K. Calibracion homografica usa el yellow box (~6m x 4m) como referencia. Asignacion main/priority es heuristica para demo.",
+  "video": "halifax_intersection_aerial.mp4",
+  "fps": 30,
+  "speed_limit_kmh": 30,
+  "homography": {
+    "image_points": [[1520, 940], [2320, 940], [2320, 1360], [1520, 1360]],
+    "world_points": [[0, 0], [6, 0], [6, 4], [0, 4]]
+  },
+  "lanes": [
+    {
+      "name": "main_southbound",
+      "polygon": [[2040, 0], [2320, 0], [2320, 940], [2040, 940]],
+      "direction_deg": 90,
+      "priority": true,
+      "speed_limit_kmh": 30
+    },
+    {
+      "name": "main_northbound",
+      "polygon": [[1760, 1360], [2040, 1360], [2040, 2160], [1760, 2160]],
+      "direction_deg": 270,
+      "priority": true,
+      "speed_limit_kmh": 30
+    },
+    {
+      "name": "cross_westbound",
+      "polygon": [[2320, 940], [3840, 940], [3840, 1160], [2320, 1160]],
+      "direction_deg": 180,
+      "speed_limit_kmh": 25
+    },
+    {
+      "name": "cross_eastbound",
+      "polygon": [[0, 1160], [1520, 1160], [1520, 1360], [0, 1360]],
+      "direction_deg": 0,
+      "speed_limit_kmh": 25
+    }
+  ],
+  "stop_lines": [
+    {
+      "name": "stop_east_approach",
+      "line": [[1520, 1160], [1520, 1360]],
+      "applies_to_lane": "cross_eastbound",
+      "stop_threshold_kmh": 5
+    },
+    {
+      "name": "stop_west_approach",
+      "line": [[2320, 940], [2320, 1160]],
+      "applies_to_lane": "cross_westbound",
+      "stop_threshold_kmh": 5
+    }
+  ],
+  "conflict_zones": [
+    {
+      "name": "yellow_box_intersection",
+      "polygon": [[1520, 940], [2320, 940], [2320, 1360], [1520, 1360]],
+      "priority_lanes": ["main_southbound", "main_northbound"],
+      "yielding_lanes": ["cross_eastbound", "cross_westbound"]
+    }
+  ]
+}

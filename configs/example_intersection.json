@@ -1,0 +1,43 @@
+{
+  "_comment": "Plantilla. Coordenadas en pixeles del frame. Generala con `python -m src.roi_tool --video <path> --out <esta_ruta>`.",
+  "video": "ejemplo.mp4",
+  "fps": null,
+  "speed_limit_kmh": 40,
+  "homography": {
+    "_comment": "4 puntos en la imagen + sus coords mundo en metros. Si no tenés medidas reales, usá referencia: ancho típico de carril 3.3-3.5m, autos 4.5m de largo.",
+    "image_points": [[400, 600], [900, 600], [900, 800], [400, 800]],
+    "world_points": [[0, 0], [7, 0], [7, 5], [0, 5]]
+  },
+  "lanes": [
+    {
+      "name": "norte_sur",
+      "polygon": [[600, 100], [800, 100], [800, 900], [600, 900]],
+      "direction_deg": 270,
+      "priority": true,
+      "speed_limit_kmh": 40
+    },
+    {
+      "name": "este_oeste",
+      "polygon": [[100, 500], [1500, 500], [1500, 700], [100, 700]],
+      "direction_deg": 180,
+      "priority": false,
+      "speed_limit_kmh": 40
+    }
+  ],
+  "stop_lines": [
+    {
+      "name": "stop_este",
+      "line": [[700, 550], [900, 550]],
+      "applies_to_lane": "este_oeste",
+      "stop_threshold_kmh": 5
+    }
+  ],
+  "conflict_zones": [
+    {
+      "name": "centro_interseccion",
+      "polygon": [[600, 500], [900, 500], [900, 700], [600, 700]],
+      "priority_lanes": ["norte_sur"],
+      "yielding_lanes": ["este_oeste"]
+    }
+  ]
+}

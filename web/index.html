@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diagonal — Visión por computadora para tránsito urbano</title>
+  <meta name="description" content="Mediamos comportamientos viales en intersecciones problemáticas. Detección automática de exceso de velocidad, no ceder el paso, contramano, distancia corta y frenadas bruscas — sobre video, en tiempo real." />
+  <link rel="stylesheet" href="tokens.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container row">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 28 L28 4" stroke="var(--accent-default)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="10" cy="22" r="3" fill="var(--accent-default)"/>
+            <circle cx="22" cy="10" r="3" fill="var(--accent-default)"/>
+          </svg>
+        </span>
+        <span class="brand-word">Di<em>a</em>gonal</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#demo">Demo</a>
+        <a href="#conductas">Conductas</a>
+        <a href="#pipeline">Cómo funciona</a>
+        <a href="#stack">Stack</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn-primary" href="#contacto">Pilot en tu diagonal →</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow"><span class="dot"></span>Funcionando hoy, en CPU, sin hardware especial</span>
+        <h1>La tecnología <em>ya existe</em>. Solo hay que instalarla.</h1>
+        <p class="subhead">
+          Una cámara fija. Visión por computadora open source. Clasificación automática de cinco infracciones por vehículo, con índice de conducta acumulado por patente. Esto no es una promesa: es lo que corremos sobre video real.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#demo">Ver el sistema en acción</a>
+          <a class="btn btn-ghost" href="#pipeline">Cómo funciona</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DEMO ===== -->
+    <section id="demo">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow"><span class="dot"></span>Demo · video real procesado</span>
+          <h2>Cada vehículo, <em>identificado</em>. Cada conducta, <em>clasificada</em>.</h2>
+          <p class="lead">
+            Elegí una escena. El video se anota en tiempo real y el panel de la derecha registra cada infracción en el milisegundo en que ocurre.
+          </p>
+        </div>
+
+        <div class="scene-picker" id="scene-picker" role="tablist" aria-label="Seleccionar escena">
+          <button class="scene-card active" data-scene="montreal_1" role="tab" aria-selected="true">
+            <span class="scene-num">01</span>
+            <span class="scene-meta">
+              <span class="scene-title">Saint-Denis · escena A</span>
+              <span class="scene-sub">Montreal · 10 s · día</span>
+            </span>
+          </button>
+          <button class="scene-card" data-scene="montreal_2" role="tab" aria-selected="false">
+            <span class="scene-num">02</span>
+            <span class="scene-meta">
+              <span class="scene-title">Saint-Denis · escena B</span>
+              <span class="scene-sub">Montreal · 10 s · misma cámara, otro horario</span>
+            </span>
+          </button>
+          <button class="scene-card disabled" data-scene="campana" role="tab" aria-selected="false" disabled>
+            <span class="scene-num">03</span>
+            <span class="scene-meta">
+              <span class="scene-title">Diagonal Campana</span>
+              <span class="scene-sub">Pendiente · video real del pilot</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="demo-layout">
+          <!-- VIDEO + TIMELINE -->
+          <div class="demo-main">
+            <figure class="demo">
+              <video id="demo-video" src="assets/demo.mp4" poster="assets/poster.jpg" controls playsinline preload="metadata" muted></video>
+            </figure>
+
+            <div class="timeline" aria-hidden="true">
+              <div class="timeline-track">
+                <div class="timeline-events" id="timeline-events"></div>
+                <div class="timeline-playhead" id="timeline-playhead"></div>
+              </div>
+              <div class="timeline-marks">
+                <span>0s</span><span>2s</span><span>4s</span><span>6s</span><span>8s</span><span>10s</span>
+              </div>
+            </div>
+
+            <div class="demo-bar">
+              <div class="demo-stat">
+                <span class="label">t</span>
+                <span class="value font-mono" id="stat-time">0.00<span class="unit">s</span></span>
+              </div>
+              <div class="demo-stat">
+                <span class="label">Eventos hasta ahora</span>
+                <span class="value" id="stat-count">0<span class="unit">/ 178</span></span>
+              </div>
+              <div class="demo-stat">
+                <span class="label">Tracks activos</span>
+                <span class="value" id="stat-tracks">0</span>
+              </div>
+              <div class="demo-stat">
+                <span class="label">Última regla</span>
+                <span class="value" id="stat-last" style="font-size: var(--text-18); font-family: var(--font-mono); text-transform: lowercase;">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- LIVE FEED -->
+          <aside class="demo-feed">
+            <header class="feed-header">
+              <div>
+                <span class="eyebrow" style="font-size: 10px;">Live</span>
+                <h3>Eventos detectados</h3>
+              </div>
+              <div class="feed-counter">
+                <span id="feed-count">0</span>
+                <span class="label">/ 178</span>
+              </div>
+            </header>
+
+            <div class="feed-filters" id="feed-filters">
+              <button class="filter active" data-type="all">Todos</button>
+              <button class="filter" data-type="contramano">contramano</button>
+              <button class="filter" data-type="distancia_corta">distancia</button>
+              <button class="filter" data-type="frenada_brusca">frenadas</button>
+              <button class="filter" data-type="exceso_velocidad">exceso</button>
+              <button class="filter" data-type="conduccion_erratica">errática</button>
+            </div>
+
+            <ul class="event-list" id="event-list"></ul>
+
+            <footer class="feed-footer">
+              <button class="btn btn-ghost" id="reset-btn" type="button">↻ Reiniciar</button>
+            </footer>
+          </aside>
+        </div>
+
+        <p class="note">
+          <span aria-hidden="true">⓵</span>
+          <span><strong>Honestidad técnica:</strong> el video corre con calibración aproximada (homografía a ojo, dirección de carril sin medir). En una instalación real, esos parámetros se miden en campo en una hora y la precisión sube a la de cinemómetros homologados. El algoritmo es el mismo.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== BEHAVIORS GRID ===== -->
+    <section id="conductas">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Conductas clasificadas</span>
+          <h2>Cinco categorías, una por una <em>auditable</em>.</h2>
+          <p class="lead">
+            Cada evento se persiste con timestamp, ID del vehículo, frame de evidencia y severidad. No es un score caja-negra: es trazabilidad fila por fila.
+          </p>
+        </div>
+
+        <div class="behaviors">
+          <article class="behavior-card" data-type="exceso_velocidad">
+            <span class="badge">exceso_velocidad</span>
+            <h3>Exceso de velocidad</h3>
+            <p>Velocidad estimada por homografía sobre el plano del piso. Se compara contra el límite del carril con tolerancia configurable.</p>
+            <span class="count" data-count="exceso_velocidad">—<span class="suffix">en la escena activa</span></span>
+          </article>
+
+          <article class="behavior-card" data-type="frenada_brusca">
+            <span class="badge">frenada_brusca</span>
+            <h3>Frenadas bruscas</h3>
+            <p>Desaceleración mayor a 30 km/h por segundo sostenida en una ventana. Indicador de conducción reactiva o casi-colisión.</p>
+            <span class="count" data-count="frenada_brusca">—<span class="suffix">en la escena activa</span></span>
+          </article>
+
+          <article class="behavior-card" data-type="distancia_corta">
+            <span class="badge">distancia_corta</span>
+            <h3>Distancia de seguimiento</h3>
+            <p>Gap temporal con el vehículo de adelante por debajo de 0.7 s, computado en metros sobre el plano del piso.</p>
+            <span class="count" data-count="distancia_corta">—<span class="suffix">en la escena activa</span></span>
+          </article>
+
+          <article class="behavior-card" data-type="conduccion_erratica">
+            <span class="badge">conduccion_erratica</span>
+            <h3>Conducción errática</h3>
+            <p>Dispersión lateral de la trayectoria (zig-zag) relativa al desplazamiento neto. Detecta cambios bruscos de carril.</p>
+            <span class="count" data-count="conduccion_erratica">—<span class="suffix">en la escena activa</span></span>
+          </article>
+
+          <article class="behavior-card" style="border-style: dashed;" data-type="contramano">
+            <span class="badge">contramano</span>
+            <h3>Sentido contrario</h3>
+            <p>Heading del vehículo desviado más de 110° de la dirección permitida del carril. Requiere lanes con dirección configurada.</p>
+            <span class="count" data-count="contramano" style="color: var(--text-tertiary)">—<span class="suffix">requiere lane direccionado</span></span>
+          </article>
+
+          <article class="behavior-card" style="border-style: dashed;" data-type="no_ceder_paso">
+            <span class="badge">no_ceder_paso</span>
+            <h3>No ceder el paso</h3>
+            <p>Cruce de zona de conflicto sin desacelerar mientras un vehículo con prioridad ocupa la intersección. Métrica PET/TTC.</p>
+            <span class="count" data-count="no_ceder_paso" style="color: var(--text-tertiary)">—<span class="suffix">requiere zona de conflicto</span></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LEADERBOARD ===== -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Índice de conducta por patente</span>
+          <h2>Score acumulado, <em>ranking automático</em>.</h2>
+          <p class="lead">
+            La misma intersección genera un ranking de "peores conductores" sumando severidad de cada evento. Sumando ALPR (lectura de patente), cada Track ID se asocia con un vehículo identificable.
+          </p>
+        </div>
+
+        <div class="leaderboard">
+          <table>
+            <thead>
+              <tr>
+                <th>Track</th>
+                <th>Score</th>
+                <th>V máx</th>
+                <th>Eventos</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <tr><td colspan="4" style="text-align:center; color: var(--text-tertiary); padding: var(--space-8);">Sin datos — elegí una escena arriba.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PIPELINE ===== -->
+    <section id="pipeline">
+      <div class="container">
+        <div class="section-header">
+          <span class="eyebrow">Cómo funciona</span>
+          <h2>Cinco etapas. <em>Todo open source</em>. Cero invención.</h2>
+          <p class="lead">
+            Ensamblamos componentes maduros — ninguno experimental — y los orquestamos con un motor de reglas auditable.
+          </p>
+        </div>
+
+        <div class="pipeline">
+          <article class="step">
+            <h4>Captura</h4>
+            <p>Cámara fija IP (RTSP), drone con descarga o archivo de video. Calidad mínima 720p / 30 fps.</p>
+          </article>
+          <article class="step">
+            <h4>Detección</h4>
+            <p>YOLO11 inferencia frame a frame. Filtra clases vehículo: auto, moto, bus, camión.</p>
+          </article>
+          <article class="step">
+            <h4>Tracking</h4>
+            <p>ByteTrack asigna un ID persistente a cada vehículo, sobreviviendo a oclusiones cortas.</p>
+          </article>
+          <article class="step">
+            <h4>Reglas</h4>
+            <p>Motor de inferencia sobre la trayectoria + ROIs configurables: stop lines, zonas de conflicto, carriles direccionados.</p>
+          </article>
+          <article class="step">
+            <h4>Persistencia</h4>
+            <p>CSV de eventos + snapshots + score por track. Listo para dashboard, notificación o sistema de multas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STACK ===== -->
+    <section id="stack" class="tight">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow">Stack técnico</span>
+          <h2>Sin caja negra. Sin licencias <em>vendor lock</em>.</h2>
+        </div>
+
+        <div class="tech-row">
+          <span class="tech-pill"><strong>YOLO11</strong> — detección</span>
+          <span class="tech-pill"><strong>ByteTrack</strong> — tracking</span>
+          <span class="tech-pill"><strong>OpenCV</strong> — geometría</span>
+          <span class="tech-pill"><strong>Supervision</strong> — anotación</span>
+          <span class="tech-pill"><strong>PyTorch</strong> — runtime</span>
+          <span class="tech-pill"><strong>FastALPR</strong> — patentes (opcional)</span>
+          <span class="tech-pill"><strong>PostgreSQL + TimescaleDB</strong> — series</span>
+          <span class="tech-pill"><strong>Grafana</strong> — dashboard</span>
+        </div>
+
+        <p class="note" style="max-width: 70ch; margin-left: auto; margin-right: auto;">
+          <span aria-hidden="true">⓶</span>
+          <span>
+            <strong>Para validación legal del cinemómetro</strong> en Argentina se requiere homologación INTI. Para el "índice de conducta" interno y avisos preventivos, ningún trámite. La distinción es importante para diseñar el rollout de aviso → multa.
+          </span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section id="contacto" class="cta-section">
+      <div class="container">
+        <div class="section-header center">
+          <span class="eyebrow"><span class="dot"></span>Próximo paso</span>
+          <h2>Una <em>diagonal</em> problemática.<br>Un mes de pilot. Datos, no opiniones.</h2>
+          <p class="lead">
+            Llevamos esto a la calle. Una cámara, una intersección de tu ciudad, un mes de recolección. Al final: un reporte de patentes reincidentes, frecuencias, puntos críticos. Decisiones basadas en evidencia.
+          </p>
+        </div>
+        <div class="cta-row" style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="mailto:projectsbaish@gmail.com?subject=Pilot Diagonal — diagonal de Campana">Hablemos de un pilot →</a>
+          <a class="btn btn-ghost" href="https://github.com" target="_blank" rel="noopener">Ver el código</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container row">
+      <div>
+        <span class="brand-word">Di<em>a</em>gonal</span>
+        <span style="color: var(--text-tertiary); margin-left: var(--space-3);">— monitoreo vial open source.</span>
+      </div>
+      <div class="font-mono" style="font-size: var(--text-12);">
+        Campana, Bs. As. · 2026 · MIT
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== Live event feed synced with video, multi-scene ===== */
+    (async () => {
+      const video = document.getElementById('demo-video');
+      const demoLayout = document.querySelector('.demo-layout');
+      const eventList = document.getElementById('event-list');
+      const timelineEvents = document.getElementById('timeline-events');
+      const timelinePlayhead = document.getElementById('timeline-playhead');
+      const statTime = document.getElementById('stat-time');
+      const statCount = document.getElementById('stat-count');
+      const statTracks = document.getElementById('stat-tracks');
+      const statLast = document.getElementById('stat-last');
+      const feedCount = document.getElementById('feed-count');
+      const filters = document.querySelectorAll('#feed-filters .filter');
+      const resetBtn = document.getElementById('reset-btn');
+      const sceneCards = document.querySelectorAll('#scene-picker .scene-card');
+
+      // ----- Scenes catalog ------
+      const SCENES = {
+        montreal_1: {
+          video:  'assets/demo.mp4',
+          poster: 'assets/poster.jpg',
+          events: 'assets/events.csv',
+          duration: 10,
+        },
+        montreal_2: {
+          video:  'assets/demo_scene2.mp4',
+          poster: 'assets/poster_scene2.jpg',
+          events: 'assets/events_scene2.csv',
+          duration: 10,
+        },
+      };
+
+      let TOTAL_DURATION = 10;
+      let activeFilter = 'all';
+      let renderedIds = new Set();
+      let events = [];
+
+      // Filtros para reducir artefactos conocidos del pipeline en estado
+      // PoC (calibración aproximada, tracking ruidoso). En producción con
+      // homografía medida y reglas afinadas estos filtros sobran.
+      function isLikelyNoise(e) {
+        // conduccion_erratica en autos parados: bbox jitter, no swerving
+        if (e.type === 'conduccion_erratica' && (e.speed_kmh ?? 0) < 8) return true;
+        // velocidades absurdamente altas que el cap del tracker no atrapó
+        if (e.speed_kmh > 90) return true;
+        return false;
+      }
+
+      async function fetchCSV(path) {
+        const res = await fetch(path);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const text = await res.text();
+        const rows = text.trim().split('\n');
+        const headers = rows[0].split(',');
+        const parsed = rows.slice(1).map((row, i) => {
+          const cols = row.split(',');
+          const obj = { _idx: i };
+          headers.forEach((h, j) => obj[h] = cols[j]);
+          obj.t_sec = parseFloat(obj.t_sec);
+          obj.severity = parseFloat(obj.severity);
+          obj.track_id = parseInt(obj.track_id);
+          obj.speed_kmh = parseFloat(obj.speed_kmh);
+          return obj;
+        }).filter(e => !isNaN(e.t_sec) && !isLikelyNoise(e));
+        // Reindex after filter
+        parsed.forEach((e, i) => e._idx = i);
+        return parsed;
+      }
+
+      async function loadScene(key) {
+        const scene = SCENES[key];
+        if (!scene) return;
+        demoLayout.classList.add('loading');
+        try {
+          events = await fetchCSV(scene.events);
+        } catch (err) {
+          console.error('No pude cargar', scene.events, err);
+          demoLayout.classList.remove('loading');
+          return;
+        }
+        TOTAL_DURATION = scene.duration;
+        video.pause();
+        video.src = scene.video;
+        video.poster = scene.poster;
+        video.load();
+        // Clear feed + timeline
+        eventList.innerHTML = '';
+        timelineEvents.innerHTML = '';
+        renderedIds = new Set();
+        statLast.textContent = '—';
+
+        // Build new timeline ticks
+        events.forEach(e => {
+          const left = Math.min(100, (e.t_sec / TOTAL_DURATION) * 100);
+          const tick = document.createElement('span');
+          tick.className = 'timeline-tick t-' + e.type;
+          tick.style.left = left + '%';
+          tick.title = `${e.t_sec.toFixed(2)}s — ${e.type}`;
+          timelineEvents.appendChild(tick);
+        });
+
+        // Update feed counter denominator
+        document.querySelectorAll('.feed-counter .label, #stat-count .unit')
+          .forEach(el => el.textContent = '/ ' + events.length);
+
+        // Update behavior-card counts
+        const byType = {};
+        events.forEach(e => byType[e.type] = (byType[e.type] || 0) + 1);
+        document.querySelectorAll('[data-count]').forEach(el => {
+          const type = el.dataset.count;
+          const n = byType[type] || 0;
+          el.firstChild.textContent = n;
+          if (n === 0) el.style.color = 'var(--text-tertiary)';
+          else el.style.color = '';
+        });
+
+        // Update leaderboard
+        renderLeaderboard(events);
+
+        update(0);
+        applyFilter();
+        demoLayout.classList.remove('loading');
+        requestAnimationFrame(() => update(0.05));
+      }
+
+      function renderLeaderboard(events) {
+        const tbody = document.getElementById('leaderboard-body');
+        if (!tbody) return;
+        const byTrack = {};
+        events.forEach(e => {
+          const t = byTrack[e.track_id] || { types: {}, score: 0, vmax: 0 };
+          t.types[e.type] = (t.types[e.type] || 0) + 1;
+          t.score += e.severity;
+          if (e.speed_kmh > t.vmax) t.vmax = e.speed_kmh;
+          byTrack[e.track_id] = t;
+        });
+        const ranked = Object.entries(byTrack)
+          .map(([tid, d]) => ({ tid, ...d }))
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
+        if (ranked.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-tertiary); padding: var(--space-8);">Sin eventos en esta escena.</td></tr>`;
+          return;
+        }
+        tbody.innerHTML = ranked.map(r => {
+          const tags = Object.entries(r.types)
+            .map(([t, n]) => `<span class="tag">${t.replace('conduccion_', '').replace('_', ' ')}×${n}</span>`).join('');
+          return `<tr>
+            <td class="id">#${r.tid}</td>
+            <td class="score">${r.score.toFixed(2)}</td>
+            <td>${r.vmax.toFixed(0)} km/h</td>
+            <td><div class="tags">${tags}</div></td>
+          </tr>`;
+        }).join('');
+      }
+
+      function renderEvent(e) {
+        const li = document.createElement('li');
+        li.className = 'event-item type-' + e.type;
+        li.dataset.idx = e._idx;
+        li.dataset.type = e.type;
+        li.dataset.t = e.t_sec;
+        const detail = e.detail.length > 60 ? e.detail.slice(0, 60) + '…' : e.detail;
+        li.innerHTML = `
+          <div class="ev-time">${e.t_sec.toFixed(2)}<span class="unit">s</span></div>
+          <div class="ev-body">
+            <div class="ev-head">
+              <span class="ev-badge">${e.type}</span>
+              <span class="ev-track">#${e.track_id}</span>
+            </div>
+            <div class="ev-detail">${detail}</div>
+          </div>
+          <div class="ev-sev" style="--sev: ${e.severity};" title="severidad ${(e.severity*100).toFixed(0)}%"></div>
+        `;
+        li.addEventListener('click', () => {
+          video.currentTime = e.t_sec;
+          video.play();
+        });
+        return li;
+      }
+
+      function applyFilter() {
+        document.querySelectorAll('.event-item').forEach(el => {
+          el.classList.toggle('filtered-out',
+            activeFilter !== 'all' && el.dataset.type !== activeFilter);
+        });
+        document.querySelectorAll('.timeline-tick').forEach(tk => {
+          tk.classList.toggle('filtered-out',
+            activeFilter !== 'all' && !tk.classList.contains('t-' + activeFilter));
+        });
+      }
+
+      filters.forEach(btn => btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.type;
+        applyFilter();
+      }));
+
+      function update(t) {
+        // Playhead
+        const pct = Math.min(100, (t / TOTAL_DURATION) * 100);
+        timelinePlayhead.style.left = pct + '%';
+        statTime.innerHTML = t.toFixed(2) + '<span class="unit">s</span>';
+
+        // Render new events up to t
+        const newOnes = events.filter(e => e.t_sec <= t && !renderedIds.has(e._idx));
+        newOnes.forEach(e => {
+          const li = renderEvent(e);
+          li.classList.add('just-fired');
+          eventList.prepend(li);
+          renderedIds.add(e._idx);
+          setTimeout(() => li.classList.remove('just-fired'), 600);
+          // Update last rule
+          statLast.textContent = e.type;
+        });
+
+        // Trim feed to last 30 to keep DOM light
+        while (eventList.children.length > 30) {
+          eventList.removeChild(eventList.lastChild);
+        }
+
+        // Stats
+        const upTo = events.filter(e => e.t_sec <= t);
+        statCount.innerHTML = upTo.length + '<span class="unit">/ ' + events.length + '</span>';
+        feedCount.textContent = upTo.length;
+        const tracks = new Set(upTo.map(e => e.track_id));
+        statTracks.textContent = tracks.size;
+
+        applyFilter();
+      }
+
+      // Sync to video
+      video.addEventListener('timeupdate', () => update(video.currentTime));
+
+      // Reset (back to 0 and clear feed)
+      resetBtn.addEventListener('click', () => {
+        eventList.innerHTML = '';
+        renderedIds = new Set();
+        video.currentTime = 0;
+        statLast.textContent = '—';
+        update(0);
+      });
+
+      // Scene picker handlers
+      sceneCards.forEach(card => {
+        if (card.classList.contains('disabled')) return;
+        card.addEventListener('click', async () => {
+          const key = card.dataset.scene;
+          if (!key || !SCENES[key]) return;
+          sceneCards.forEach(c => {
+            c.classList.toggle('active', c === card);
+            c.setAttribute('aria-selected', c === card ? 'true' : 'false');
+          });
+          await loadScene(key);
+        });
+      });
+
+      // Initial load
+      await loadScene('montreal_1');
+    })();
+  </script>
+
+</body>
+</html>

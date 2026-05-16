@@ -1,0 +1,553 @@
+{
+  "3": {
+    "count": 4,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "contramano": 1,
+      "distancia_corta": 1,
+      "frenada_brusca": 1
+    },
+    "score": 3.153355199118304
+  },
+  "2": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1,
+      "frenada_brusca": 1
+    },
+    "score": 1.6896213968286085
+  },
+  "11": {
+    "count": 6,
+    "by_type": {
+      "contramano": 3,
+      "frenada_brusca": 1,
+      "conduccion_erratica": 1,
+      "distancia_corta": 1
+    },
+    "score": 4.722661372184599
+  },
+  "13": {
+    "count": 1,
+    "by_type": {
+      "distancia_corta": 1
+    },
+    "score": 0.42829316790469796
+  },
+  "1": {
+    "count": 2,
+    "by_type": {
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 0.4294231899812656
+  },
+  "14": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "frenada_brusca": 1
+    },
+    "score": 2.6572251237871845
+  },
+  "9": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "frenada_brusca": 1
+    },
+    "score": 2.024953882771596
+  },
+  "7": {
+    "count": 2,
+    "by_type": {
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.1242409017911088
+  },
+  "12": {
+    "count": 3,
+    "by_type": {
+      "conduccion_erratica": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 2.078920651588191
+  },
+  "15": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 2.1267205768276245
+  },
+  "16": {
+    "count": 2,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.8050645681655717
+  },
+  "17": {
+    "count": 8,
+    "by_type": {
+      "contramano": 3,
+      "distancia_corta": 2,
+      "frenada_brusca": 2,
+      "exceso_velocidad": 1
+    },
+    "score": 5.2819454380616255
+  },
+  "4": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.7205083394934592
+  },
+  "18": {
+    "count": 2,
+    "by_type": {
+      "distancia_corta": 1,
+      "contramano": 1
+    },
+    "score": 1.4775187208503429
+  },
+  "20": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 2.1047616431807645
+  },
+  "6": {
+    "count": 5,
+    "by_type": {
+      "contramano": 2,
+      "frenada_brusca": 1,
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 2.455397664541631
+  },
+  "21": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.4081420590745417
+  },
+  "22": {
+    "count": 2,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.4496760849243013
+  },
+  "19": {
+    "count": 3,
+    "by_type": {
+      "frenada_brusca": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 0.8937584406287414
+  },
+  "23": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.4901199905575817
+  },
+  "25": {
+    "count": 4,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "contramano": 1,
+      "distancia_corta": 1,
+      "frenada_brusca": 1
+    },
+    "score": 3.4353383854279778
+  },
+  "27": {
+    "count": 3,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 1.4654998490050195
+  },
+  "28": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.8884703738169359
+  },
+  "26": {
+    "count": 2,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 0.6181630179837946
+  },
+  "30": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "conduccion_erratica": 2
+    },
+    "score": 2.275250834755173
+  },
+  "29": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1
+    },
+    "score": 1.4340989947670648
+  },
+  "31": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 2.4467341689572755
+  },
+  "32": {
+    "count": 4,
+    "by_type": {
+      "distancia_corta": 1,
+      "exceso_velocidad": 1,
+      "contramano": 1,
+      "frenada_brusca": 1
+    },
+    "score": 2.66946825449066
+  },
+  "33": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.9830318889662264
+  },
+  "34": {
+    "count": 6,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "contramano": 1,
+      "distancia_corta": 2,
+      "frenada_brusca": 2
+    },
+    "score": 5.117604886763086
+  },
+  "36": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.9422572039405632
+  },
+  "37": {
+    "count": 2,
+    "by_type": {
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.0849475344087116
+  },
+  "39": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.915991772092616
+  },
+  "35": {
+    "count": 3,
+    "by_type": {
+      "frenada_brusca": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 1.6281644016392929
+  },
+  "41": {
+    "count": 3,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.3671892331641184
+  },
+  "42": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 1.5540482541108327
+  },
+  "40": {
+    "count": 1,
+    "by_type": {
+      "conduccion_erratica": 1
+    },
+    "score": 0.7561834376983008
+  },
+  "43": {
+    "count": 1,
+    "by_type": {
+      "distancia_corta": 1
+    },
+    "score": 0.8750215858962461
+  },
+  "44": {
+    "count": 4,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 3.00939294565469
+  },
+  "46": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1
+    },
+    "score": 1.6271071327472204
+  },
+  "47": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 2.607693193706663
+  },
+  "49": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1,
+      "frenada_brusca": 1
+    },
+    "score": 2.1947945545053296
+  },
+  "50": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 2.242167023427312
+  },
+  "24": {
+    "count": 5,
+    "by_type": {
+      "contramano": 2,
+      "exceso_velocidad": 1,
+      "distancia_corta": 1,
+      "frenada_brusca": 1
+    },
+    "score": 2.40741927580488
+  },
+  "51": {
+    "count": 3,
+    "by_type": {
+      "conduccion_erratica": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 2.296786663755453
+  },
+  "54": {
+    "count": 2,
+    "by_type": {
+      "exceso_velocidad": 1,
+      "distancia_corta": 1
+    },
+    "score": 0.9732338459168721
+  },
+  "55": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 2.4099794273397137
+  },
+  "56": {
+    "count": 5,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1,
+      "frenada_brusca": 1,
+      "exceso_velocidad": 1
+    },
+    "score": 3.7468361410290307
+  },
+  "53": {
+    "count": 2,
+    "by_type": {
+      "conduccion_erratica": 1,
+      "contramano": 1
+    },
+    "score": 1.9037730079523827
+  },
+  "57": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.6018936807324518
+  },
+  "52": {
+    "count": 1,
+    "by_type": {
+      "conduccion_erratica": 1
+    },
+    "score": 0.9674127434439371
+  },
+  "59": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 1.8295853182168385
+  },
+  "58": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.921106220925954
+  },
+  "60": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 1.6360504613391098
+  },
+  "61": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "conduccion_erratica": 1,
+      "frenada_brusca": 1,
+      "distancia_corta": 1
+    },
+    "score": 2.5050508198922214
+  },
+  "62": {
+    "count": 4,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1,
+      "frenada_brusca": 1
+    },
+    "score": 3.4049967330219717
+  },
+  "64": {
+    "count": 3,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1,
+      "conduccion_erratica": 1
+    },
+    "score": 2.300301876003565
+  },
+  "63": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.9828946561505666
+  },
+  "65": {
+    "count": 2,
+    "by_type": {
+      "contramano": 1,
+      "distancia_corta": 1
+    },
+    "score": 0.952926671454746
+  },
+  "66": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.9511375845747122
+  },
+  "68": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.9780669049354691
+  },
+  "70": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.9523732923007822
+  },
+  "72": {
+    "count": 1,
+    "by_type": {
+      "contramano": 1
+    },
+    "score": 0.6441428930157697
+  },
+  "69": {
+    "count": 1,
+    "by_type": {
+      "conduccion_erratica": 1
+    },
+    "score": 0.6099863267928427
+  }
+}
